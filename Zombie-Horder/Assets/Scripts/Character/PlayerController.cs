@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Character
 {
+    [RequireComponent(typeof(PlayerHealthComponent))]
+
     public class PlayerController : MonoBehaviour
     {
         public CrossHairScript CrossHair => CrossHairComponent;
@@ -12,6 +14,5 @@ namespace Character
         public bool IsReloading;
         public bool IsJumping;
         public bool IsRunning;
-
     }
 }
