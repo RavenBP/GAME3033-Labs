@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Character.UI
 {
-    public class CrossHairScript : InputMonoBehaviour
+    public class CrossHairScript : InputMonoBehaviour, IPausable
     {
         public Vector2 MouseSensitivity;
         
@@ -30,8 +30,8 @@ namespace Character.UI
 
         private Vector2 CrosshairStartingPosition;
         private Vector2 CurrentLookDeltas;
-        
-        
+
+        private bool gamePaused = false;
         
         // Start is called before the first frame update
         private void Start()
@@ -55,6 +55,11 @@ namespace Character.UI
         
         private void OnLook(InputAction.CallbackContext delta)
         {
+            //if (gamePaused)
+            //{
+            //    return;
+            //}
+
             Vector2 mouseDelta = delta.ReadValue<Vector2>();
 
             CurrentLookDeltas.x += mouseDelta.x * MouseSensitivity.x;
@@ -72,6 +77,11 @@ namespace Character.UI
 
         private void Update()
         {
+            //if (gamePaused)
+            //{
+            //    return;
+            //}
+
             float crosshairXPosition = CrosshairStartingPosition.x + CurrentLookDeltas.x;
             float crosshairYPosition = Inverted
                 ? CrosshairStartingPosition.y - CurrentLookDeltas.y
@@ -94,8 +104,14 @@ namespace Character.UI
             GameInput.PlayerActionMap.Look.performed -= OnLook;
         }
 
-    
-        
-        
+        public void PauseMenu()
+        {
+            gamePaused = true;
+        }
+
+        public void UnPauseMenu()
+        {
+            gamePaused = false;
+        }
     }
 }

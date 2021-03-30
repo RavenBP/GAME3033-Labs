@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Character;
 
 namespace Systems.Health
 {
@@ -17,6 +18,8 @@ namespace Systems.Health
         protected virtual void Start()
         {
             CurrentHealth = TotalHealth;
+
+            CurrentHealth = 50;
         }
 
         public virtual void TakeDamage(float damage)
@@ -32,6 +35,14 @@ namespace Systems.Health
         public virtual void Destroy()
         {
             Destroy(gameObject);
+        }
+
+        public void HealPlayer(int effect)
+        {
+            if (CurrentHealth < MaxHealth)
+            {
+                CurrentHealth = Mathf.Clamp(CurrentHealth + effect, 0, MaxHealth);
+            }
         }
     }
 }
