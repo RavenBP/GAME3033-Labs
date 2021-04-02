@@ -11,9 +11,13 @@ public abstract partial class EquippableScriptable : ItemScriptable
         set
         {
             m_Equipped = value;
+            OnEquipStatusChange?.Invoke();
         }
     }
     private bool m_Equipped;
+
+    public delegate void EquipStatusChange();
+    public event EquipStatusChange OnEquipStatusChange;
 
     public override void UseItem(PlayerController controller)
     {

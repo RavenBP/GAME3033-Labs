@@ -56,7 +56,12 @@ public class ItemPickupComponent : MonoBehaviour
         }
         
         Debug.Log($"{PickupItem.name} - Picked Up");
-        ItemInstance.UseItem(other.GetComponent<PlayerController>());
+        InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
+
+        if (playerInventory)
+        {
+            playerInventory.AddItem(ItemInstance, Amount);
+        }
 
         Destroy(gameObject);
     }
